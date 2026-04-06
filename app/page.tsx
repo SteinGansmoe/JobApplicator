@@ -16,6 +16,11 @@ const addApplication = (app: Application) => {
     setApplications(prev => [...prev, app]);
 }
 
+const updateStatus = (id: string, newStatus: ApplicationStatus) => {
+    setApplications(prev => prev.map(app => app.id === id ? {...app, status: newStatus, updated_at: new Date().toISOString()} : app));
+}
+
+
 const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     if(!company.trim() || !position.trim()) {
@@ -43,9 +48,37 @@ const onCancel = () => {
     setJobUrl("");
 }
 
+const stats = {
+  total: applications.length,
+  saved: applications.filter(app => app.status === "saved").length,
+  applied: applications.filter(app => app.status === "applied").length,
+  interview: applications.filter(app => app.status === "interview").length,
+  offer: applications.filter(app => app.status === "offer").length,
+  rejected: applications.filter(app => app.status === "rejected").length,
+  withdrawn: applications.filter(app => app.status === "withdrawn").length,
+}
+
+const statsArray = [
+  { label: "Total", value: stats.total },
+  { label: "Saved", value: stats.saved },
+  { label: "Applied", value: stats.applied },
+  { label: "Interview", value: stats.interview },
+  { label: "Offer", value: stats.offer },
+  { label: "Rejected", value: stats.rejected },
+  { label: "Withdrawn", value: stats.withdrawn },
+];
+
   return (
-    <>
+    <div className="max-w-5xl mx-auto px-4">
     <h1 className="text-3xl font-bold mb-6">Job Applications</h1>
+    <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8 mb-6 p-2">
+      {statsArray.map(item => (
+        <div key={item.label} className="p-4 text-center border border-gray-200 dark:border-gray-800 rounded shadow-sm bg-white dark:bg-gray-900">
+          <p className="text-2xl font-bold">{item.value}</p>
+          <p className="text-gray-500 dark:text-gray-400 font-medium">{item.label}</p>
+        </div>
+      ))}
+    </div>
     <button
       onClick={() => setShowForm(!showForm)}
       className="mb-4 px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700 transition"
@@ -172,11 +205,25 @@ const onCancel = () => {
         <h1>Company: {app.company}</h1>
         <h2>Position: {app.position}</h2>
         <p>Status: {app.status}</p>
+        
         <p>Applied: {new Date(app.created_at).toLocaleDateString()}</p>
+        <p>Last Updated: {new Date(app.updated_at).toLocaleDateString()}</p>
+        <select 
+        value={app.status}
+        onChange={(e) => updateStatus(app.id, e.target.value as ApplicationStatus)}
+        className="mt-2 p-2 border rounded"
+        >
+          <option value="saved">Saved</option>
+          <option value="applied">Applied</option>
+          <option value="interview">Interview</option>
+          <option value="offer">Offer</option>
+          <option value="rejected">Rejected</option>
+          <option value="withdrawn">Withdrawn</option>
+        </select>
       </div>
     ))}
   </div>
   
-  </>
+  </div>
   );
 }
