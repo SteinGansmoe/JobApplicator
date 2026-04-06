@@ -1,5 +1,6 @@
 
 export type ApplicationStatus = 
+| "saved"
 | "applied"
 | "interview"
 | "offer"
@@ -32,13 +33,10 @@ export interface Interview {
 export interface Application {
     id: string;
     company: string;
-    posting_url?: string;
+    job_url?: string;
     status: ApplicationStatus;
-    applied_date: string;
-    salary?: number;
+    position: string;
     notes?: string;
-    contact?: Contact;
-    interviews?: Interview[];
     created_at: string;
     updated_at: string;
 }
