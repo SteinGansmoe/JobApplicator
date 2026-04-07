@@ -1,4 +1,7 @@
 "use client";
+import ApplicationForm from "@/components/application-form";
+import ApplicationList from "@/components/application-list";
+import ApplicationStats from "@/components/application-stats";
 import { mockApplications } from './src/mock/mockApplications';
 import { Application, ApplicationStatus } from './src/types';
 import { useState } from 'react';
@@ -71,14 +74,7 @@ const statsArray = [
   return (
     <div className="max-w-5xl mx-auto px-4">
     <h1 className="text-3xl font-bold mb-6">Job Applications</h1>
-    <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8 mb-6 p-2">
-      {statsArray.map(item => (
-        <div key={item.label} className="p-4 text-center border border-gray-200 dark:border-gray-800 rounded shadow-sm bg-white dark:bg-gray-900">
-          <p className="text-2xl font-bold">{item.value}</p>
-          <p className="text-gray-500 dark:text-gray-400 font-medium">{item.label}</p>
-        </div>
-      ))}
-    </div>
+    <ApplicationStats stats={statsArray} />
     <button
       onClick={() => setShowForm(!showForm)}
       className="mb-4 px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700 transition"
@@ -86,143 +82,23 @@ const statsArray = [
       {showForm ? "Close Form" : "Add Application"}
     </button>
     { showForm && (
-      <form
-  className="
-    space-y-4 
-    p-6 
-    rounded-xl 
-    border border-gray-200 dark:border-gray-800 
-    bg-white dark:bg-gray-900 
-    shadow-sm
-  "
->
-  <h2 className="text-xl font-semibold">New Application</h2>
-
-  <input
-    value={company}
-    onChange={(e) => setCompany(e.target.value)}
-    placeholder="Company"
-    className="
-      w-full 
-      px-3 py-2 
-      rounded-lg 
-      border border-gray-300 dark:border-gray-700 
-      bg-white dark:bg-gray-800 
-      text-gray-900 dark:text-gray-100 
-      placeholder-gray-400
-      focus:outline-none focus:ring-2 focus:ring-blue-500
-    "
-  />
-
-  <input
-    value={position}
-    onChange={(e) => setPosition(e.target.value)}
-    placeholder="Position"
-    className="
-      w-full 
-      px-3 py-2 
-      rounded-lg 
-      border border-gray-300 dark:border-gray-700 
-      bg-white dark:bg-gray-800 
-      text-gray-900 dark:text-gray-100 
-      placeholder-gray-400
-      focus:outline-none focus:ring-2 focus:ring-blue-500
-    "
-  />
-
-  <select
-    value={status}
-    onChange={(e) => setStatus(e.target.value as ApplicationStatus)}
-    className="
-      w-full 
-      px-3 py-2 
-      rounded-lg 
-      border border-gray-300 dark:border-gray-700 
-      bg-white dark:bg-gray-800 
-      text-gray-900 dark:text-gray-100
-      focus:outline-none focus:ring-2 focus:ring-blue-500
-    "
-  >
-    <option value="saved">Saved</option>
-    <option value="applied">Applied</option>
-    <option value="interview">Interview</option>
-    <option value="offer">Offer</option>
-    <option value="rejected">Rejected</option>
-    <option value="withdrawn">Withdrawn</option>
-  </select>
-
-  <input
-    value={jobUrl}
-    onChange={(e) => setJobUrl(e.target.value)}
-    placeholder="Job URL (optional)"
-    className="
-      w-full 
-      px-3 py-2 
-      rounded-lg 
-      border border-gray-300 dark:border-gray-700 
-      bg-white dark:bg-gray-800 
-      text-gray-900 dark:text-gray-100 
-      placeholder-gray-400
-      focus:outline-none focus:ring-2 focus:ring-blue-500
-    "
-  />
-
-  <div className="flex gap-3 pt-2">
-    <button
-      type="submit"
-      onClick={handleSubmit}
-      className="
-        px-4 py-2 
-        rounded-lg 
-        bg-blue-600 text-white 
-        hover:bg-blue-700 
-        transition
-      "
-    >
-      Add
-    </button>
-
-    <button
-      type="button"
-      onClick={onCancel}
-      className="
-        px-4 py-2 
-        rounded-lg 
-        border border-gray-300 dark:border-gray-700 
-        text-gray-700 dark:text-gray-300 
-        hover:bg-gray-100 dark:hover:bg-gray-800 
-        transition
-      "
-    >
-      Cancel
-    </button>
-  </div>
-</form>
+      <ApplicationForm
+        company={company}
+        position={position}
+        status={status}
+        jobUrl={jobUrl}
+        onCompanyChange={setCompany}
+        onPositionChange={setPosition}
+        onStatusChange={setStatus}
+        onJobUrlChange={setJobUrl}
+        onSubmit={handleSubmit}
+        onCancel={onCancel}
+      />
     )}
-      <div className="space-y-6">
-    {applications.map(app => (
-      <div key={app.id} className="p-4 rounded-xl border border-gray-200 dark:border-gray-800 bg-white dark:bg-gray-900">
-        <h1>Company: {app.company}</h1>
-        <h2>Position: {app.position}</h2>
-        <p>Status: {app.status}</p>
-        
-        <p>Applied: {new Date(app.created_at).toLocaleDateString()}</p>
-        <p>Last Updated: {new Date(app.updated_at).toLocaleDateString()}</p>
-        <select 
-        value={app.status}
-        onChange={(e) => updateStatus(app.id, e.target.value as ApplicationStatus)}
-        className="mt-2 p-2 border rounded"
-        >
-          <option value="saved">Saved</option>
-          <option value="applied">Applied</option>
-          <option value="interview">Interview</option>
-          <option value="offer">Offer</option>
-          <option value="rejected">Rejected</option>
-          <option value="withdrawn">Withdrawn</option>
-        </select>
-      </div>
-    ))}
-  </div>
+    <ApplicationList
+      applications={applications}
+      onStatusChange={updateStatus}
+    />
   
   </div>
   );
