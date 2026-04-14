@@ -1,4 +1,3 @@
-JobApplication Tracker Tool. 
 
 ### 🧩 1. Project overview 
 

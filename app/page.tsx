@@ -72,8 +72,9 @@ const statsArray = [
 ];
 
   return (
-    <div className="max-w-5xl mx-auto px-4">
-    <h1 className="text-3xl font-bold mb-6">Job Applications</h1>
+    <div className="min-h-screen bg-[radial-gradient(circle_at_top,_#4c4957_0%,_#2b2931_38%,_#1c1a21_100%)] px-4 py-8">
+    <div className="mx-auto max-w-6xl">
+    <h1 className="mb-6 text-3xl font-bold text-white">Job Applications</h1>
     <ApplicationStats stats={statsArray} />
     <button
       onClick={() => setShowForm(!showForm)}
@@ -100,6 +101,7 @@ const statsArray = [
       onStatusChange={updateStatus}
     />
   
+  </div>
   </div>
   );
 }

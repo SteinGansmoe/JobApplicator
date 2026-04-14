@@ -5,42 +5,93 @@ type ApplicationCardProps = {
   onStatusChange: (id: string, newStatus: ApplicationStatus) => void;
 };
 
+const statusStyles: Record<ApplicationStatus, string> = {
+  saved: "bg-slate-500/20 text-slate-200 ring-slate-400/30",
+  applied: "bg-blue-500/20 text-blue-200 ring-blue-400/30",
+  interview: "bg-cyan-500/20 text-cyan-200 ring-cyan-400/30",
+  offer: "bg-emerald-500/20 text-emerald-200 ring-emerald-400/30",
+  rejected: "bg-rose-500/20 text-rose-200 ring-rose-400/30",
+  withdrawn: "bg-amber-500/20 text-amber-200 ring-amber-400/30",
+};
+
+function formatStatusLabel(status: ApplicationStatus) {
+  return status.charAt(0).toUpperCase() + status.slice(1);
+}
+
 export default function ApplicationCard({
   application,
   onStatusChange,
 }: ApplicationCardProps) {
   return (
-    <div className="p-4 rounded border border-gray-200 dark:border-gray-800 bg-white dark:bg-gray-900">
-      <h1 className="text-lg font-semibold text-gray-900 dark:text-gray-100">
-        Company: {application.company}
-      </h1>
-      <h2 className="text-base font-medium text-gray-900 dark:text-gray-100">
-        Position: {application.position}
-      </h2>
-      <p className="text-gray-700 dark:text-gray-300">
-        Status: {application.status}
-      </p>
+    <div className="rounded-[1.35rem] border border-white/6 bg-[#2f2d35] p-4 text-white shadow-[0_18px_40px_rgba(10,10,16,0.22)] ring-1 ring-black/10">
+      <div className="mb-4 flex items-start gap-3">
+        <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl bg-gradient-to-br from-[#8aa2ff] to-[#596dff] text-lg font-semibold text-white shadow-[0_10px_24px_rgba(89,109,255,0.35)]">
+          {application.company.charAt(0).toUpperCase()}
+        </div>
+        <div className="min-w-0 flex-1">
+          <div className="flex items-start justify-between gap-3">
+            <div>
+              <p className="text-[1rem] font-semibold tracking-[0.01em] text-white">
+                {application.company}
+              </p>
+              <p className="mt-1 text-sm text-[#b4b0bf]">
+                {application.position}
+              </p>
+            </div>
+            <span
+              className={`rounded-full px-2.5 py-1 text-[11px] font-medium ring-1 ${statusStyles[application.status]}`}
+            >
+              {formatStatusLabel(application.status)}
+            </span>
+          </div>
+        </div>
+      </div>
 
-      <p className="text-gray-700 dark:text-gray-300">
-        Applied: {new Date(application.created_at).toLocaleDateString()}
-      </p>
-      <p className="text-gray-700 dark:text-gray-300">
-        Last Updated: {new Date(application.updated_at).toLocaleDateString()}
-      </p>
+      <div className="space-y-3">
+        <div className="rounded-2xl border border-white/5 bg-[#3a3741] px-3 py-2.5">
+          <p className="text-[11px] uppercase tracking-[0.18em] text-[#8c8699]">
+            Applied
+          </p>
+          <p className="mt-1 text-sm font-medium text-[#f3f1f8]">
+            {new Date(application.created_at).toLocaleDateString()}
+          </p>
+        </div>
+
+        <div className="rounded-2xl border border-white/5 bg-[#3a3741] px-3 py-2.5">
+          <p className="text-[11px] uppercase tracking-[0.18em] text-[#8c8699]">
+            Last Updated
+          </p>
+          <p className="mt-1 text-sm font-medium text-[#f3f1f8]">
+            {new Date(application.updated_at).toLocaleDateString()}
+          </p>
+        </div>
+
+        <div className="flex flex-wrap gap-2">
+          <span className="rounded-full border border-white/6 bg-[#3a3741] px-2.5 py-1 text-[11px] text-[#c8c4d1]">
+            {application.status}
+          </span>
+          {application.job_url && (
+            <span className="rounded-full border border-white/6 bg-[#3a3741] px-2.5 py-1 text-[11px] text-[#c8c4d1]">
+              Job URL added
+            </span>
+          )}
+        </div>
+      </div>
+
       <select
         value={application.status}
         onChange={(e) =>
           onStatusChange(application.id, e.target.value as ApplicationStatus)
         }
         className="
-          mt-2
+          mt-4
           w-full
           px-3 py-2
-          rounded
-          border border-gray-300 dark:border-gray-700
-          bg-white dark:bg-gray-800
-          text-gray-900 dark:text-gray-100
-          focus:outline-none focus:ring-2 focus:ring-blue-500
+          rounded-xl
+          border border-white/8
+          bg-[#3a3741]
+          text-[#f4f2f8]
+          focus:outline-none focus:ring-2 focus:ring-[#7188ff]
         "
       >
         <option value="saved">Saved</option>
