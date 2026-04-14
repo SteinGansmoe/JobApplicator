@@ -48,7 +48,7 @@ export default function ApplicationCard({
       </div>
 
       <div className="space-y-3">
-        <div className="rounded-2xl border border-white/5 bg-[#3a3741] px-3 py-2.5">
+        <div className="rounded-xl border border-white/5 bg-[#3a3741] px-3 py-2.5">
           <p className="text-[11px] uppercase tracking-[0.18em] text-[#8c8699]">
             Applied
           </p>
@@ -56,28 +56,18 @@ export default function ApplicationCard({
             {new Date(application.created_at).toLocaleDateString()}
           </p>
         </div>
-
-        <div className="rounded-2xl border border-white/5 bg-[#3a3741] px-3 py-2.5">
+        <div className="rounded-xl border border-white/5 bg-[#3a3741] px-3 py-2.5">
           <p className="text-[11px] uppercase tracking-[0.18em] text-[#8c8699]">
-            Last Updated
+            Location
           </p>
           <p className="mt-1 text-sm font-medium text-[#f3f1f8]">
-            {new Date(application.updated_at).toLocaleDateString()}
+            {application.location || "None specified"}
           </p>
-        </div>
-
-        <div className="flex flex-wrap gap-2">
-          <span className="rounded-full border border-white/6 bg-[#3a3741] px-2.5 py-1 text-[11px] text-[#c8c4d1]">
-            {application.status}
-          </span>
-          {application.job_url && (
-            <span className="rounded-full border border-white/6 bg-[#3a3741] px-2.5 py-1 text-[11px] text-[#c8c4d1]">
-              Job URL added
-            </span>
-          )}
         </div>
       </div>
 
+
+{/* Status Dropdown this is a temp solution until Kanban with drag and drop is implemented. */}
       <select
         value={application.status}
         onChange={(e) =>
@@ -101,6 +91,14 @@ export default function ApplicationCard({
         <option value="rejected">Rejected</option>
         <option value="withdrawn">Withdrawn</option>
       </select>
+      <div className="mt-4 px-3 py-2.5">
+          <p className="text-[11px] text-right uppercase tracking-[0.18em] text-[#8c8699]">
+            Last Updated
+          </p>
+          <p className="mt-1 text-right text-sm font-medium text-[#f3f1f8]">
+            {new Date(application.updated_at).toLocaleDateString()}
+          </p>
+        </div>
     </div>
   );
 }

@@ -3,10 +3,12 @@ import { ApplicationStatus } from "@/app/src/types";
 type ApplicationFormProps = {
   company: string;
   position: string;
+  location?: string;
   status: string;
   jobUrl: string;
   onCompanyChange: (value: string) => void;
   onPositionChange: (value: string) => void;
+  onLocationChange: (value: string) => void;
   onStatusChange: (value: ApplicationStatus) => void;
   onJobUrlChange: (value: string) => void;
   onSubmit: (e: React.FormEvent) => void;
@@ -18,8 +20,10 @@ export default function ApplicationForm({
   position,
   status,
   jobUrl,
+  location,
   onCompanyChange,
   onPositionChange,
+  onLocationChange,
   onStatusChange,
   onJobUrlChange,
   onSubmit,
@@ -59,6 +63,22 @@ export default function ApplicationForm({
         value={position}
         onChange={(e) => onPositionChange(e.target.value)}
         placeholder="Position"
+        className="
+          w-full
+          px-3 py-2
+          rounded-lg
+          border border-gray-300 dark:border-gray-700
+          bg-white dark:bg-gray-800
+          text-gray-900 dark:text-gray-100
+          placeholder-gray-400
+          focus:outline-none focus:ring-2 focus:ring-blue-500
+        "
+      />
+
+      <input
+        value={location}
+        onChange={(e) => onLocationChange(e.target.value)}
+        placeholder="Location (optional)"
         className="
           w-full
           px-3 py-2

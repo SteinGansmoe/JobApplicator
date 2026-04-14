@@ -10,6 +10,7 @@ export default function Home() {
   const [applications, setApplications] = useState<Application[]>(mockApplications);
   const [showForm, setShowForm] = useState(false);
   const [company, setCompany] = useState("");
+  const [location, setLocation] = useState("");
   const [position, setPosition] = useState("");
   const [status, setStatus] = useState("saved");
   const [jobUrl, setJobUrl] = useState("");
@@ -34,6 +35,7 @@ const handleSubmit = (e: React.FormEvent) => {
         id: (applications.length + 1).toString(),
         company: company.trim(),
         position: position.trim(),
+        location: location.trim(),
         status: status as ApplicationStatus,
         job_url: jobUrl,
         created_at: new Date().toISOString(),
@@ -88,8 +90,10 @@ const statsArray = [
         position={position}
         status={status}
         jobUrl={jobUrl}
+        location={location}
         onCompanyChange={setCompany}
         onPositionChange={setPosition}
+        onLocationChange={setLocation}
         onStatusChange={setStatus}
         onJobUrlChange={setJobUrl}
         onSubmit={handleSubmit}

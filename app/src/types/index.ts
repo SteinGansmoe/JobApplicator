@@ -33,6 +33,7 @@ export interface Interview {
 export interface Application {
     id: string;
     company: string;
+    location: string;
     job_url?: string;
     status: ApplicationStatus;
     position: string;
