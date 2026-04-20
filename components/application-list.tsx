@@ -4,11 +4,13 @@ import ApplicationCard from "@/components/application-card";
 type ApplicationListProps = {
   applications: Application[];
   onStatusChange: (id: string, newStatus: ApplicationStatus) => void;
+  onDeleteApplication: (id: string) => void;
 };
 
 export default function ApplicationList({
   applications,
   onStatusChange,
+  onDeleteApplication,
 }: ApplicationListProps) {
   return (
     <section className="rounded-[1.75rem] border border-white/6 bg-[#26242c] p-4 shadow-[0_24px_60px_rgba(10,10,16,0.28)] ring-1 ring-black/10 md:p-6">
@@ -32,6 +34,7 @@ export default function ApplicationList({
             key={application.id}
             application={application}
             onStatusChange={onStatusChange}
+            onDelete={onDeleteApplication}
           />
         ))}
       </div>
