@@ -3,6 +3,7 @@ import { Application, ApplicationStatus } from "@/app/src/types";
 type ApplicationCardProps = {
   application: Application;
   onStatusChange: (id: string, newStatus: ApplicationStatus) => void;
+  onDelete: (id: string) => void;
 };
 
 const statusStyles: Record<ApplicationStatus, string> = {
@@ -21,9 +22,45 @@ function formatStatusLabel(status: ApplicationStatus) {
 export default function ApplicationCard({
   application,
   onStatusChange,
+  onDelete,
 }: ApplicationCardProps) {
+  const handleDelete = () => {
+    const shouldDelete = window.confirm(
+      `Delete ${application.position} at ${application.company}? This action cannot be undone.`
+    );
+
+    if (shouldDelete) {
+      onDelete(application.id);
+    }
+  };
+
   return (
-    <div className="rounded-[1.35rem] border border-white/6 bg-[#2f2d35] p-4 text-white shadow-[0_18px_40px_rgba(10,10,16,0.22)] ring-1 ring-black/10">
+    <div className="relative rounded-[1.35rem] border border-white/6 bg-[#2f2d35] p-4 text-white shadow-[0_18px_40px_rgba(10,10,16,0.22)] ring-1 ring-black/10">
+      <button
+        type="button"
+        onClick={handleDelete}
+        aria-label={`Delete ${application.company} application`}
+        className="absolute right-3 top-3 rounded-lg p-2 text-[#e6e2f0]/80 transition hover:bg-[#4d4a57] hover:text-[#ff8f9f] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#ff8f9f]"
+      >
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="18"
+          height="18"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          strokeWidth="2"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          aria-hidden="true"
+        >
+          <path d="M3 6h18" />
+          <path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6" />
+          <path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2" />
+          <path d="M10 11v6" />
+          <path d="M14 11v6" />
+        </svg>
+      </button>
       <div className="mb-4 flex items-start gap-3">
         <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl bg-gradient-to-br from-[#8aa2ff] to-[#596dff] text-lg font-semibold text-white shadow-[0_10px_24px_rgba(89,109,255,0.35)]">
           {application.company.charAt(0).toUpperCase()}
