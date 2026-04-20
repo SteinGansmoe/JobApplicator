@@ -82,12 +82,6 @@ const statsArray = [
     <div className="mx-auto max-w-6xl">
     <h1 className="mb-6 text-3xl font-bold text-white">Job Applications</h1>
     <ApplicationStats stats={statsArray} />
-    <button
-      onClick={() => setShowForm(!showForm)}
-      className="mb-4 px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700 transition"
-    >
-      {showForm ? "Close Form" : "Add Application"}
-    </button>
     { showForm && (
       <ApplicationForm
         company={company}
@@ -108,6 +102,8 @@ const statsArray = [
       applications={applications}
       onStatusChange={updateStatus}
       onDeleteApplication={deleteApplication}
+      onToggleForm={() => setShowForm(!showForm)}
+      isFormOpen={showForm}
     />
   
   </div>

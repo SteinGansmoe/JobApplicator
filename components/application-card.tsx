@@ -35,12 +35,12 @@ export default function ApplicationCard({
   };
 
   return (
-    <div className="relative rounded-[1.35rem] border border-white/6 bg-[#2f2d35] p-4 text-white shadow-[0_18px_40px_rgba(10,10,16,0.22)] ring-1 ring-black/10">
+    <div className="relative rounded-md border border-white/6 bg-[#2f2d35] p-4 text-white shadow-[0_18px_40px_rgba(10,10,16,0.22)] ring-1 ring-black/10">
       <button
         type="button"
         onClick={handleDelete}
         aria-label={`Delete ${application.company} application`}
-        className="absolute right-3 top-3 rounded-lg p-2 text-[#e6e2f0]/80 transition hover:bg-[#4d4a57] hover:text-[#ff8f9f] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#ff8f9f]"
+        className="absolute right-3 top-3 z-10 rounded-lg p-2 text-[#e6e2f0]/80 transition hover:bg-[#4d4a57] hover:text-[#ff8f9f] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#ff8f9f]"
       >
         <svg
           xmlns="http://www.w3.org/2000/svg"
@@ -61,26 +61,22 @@ export default function ApplicationCard({
           <path d="M14 11v6" />
         </svg>
       </button>
-      <div className="mb-4 flex items-start gap-3">
+      <div className="mb-4 flex items-start gap-3 pr-12">
         <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl bg-gradient-to-br from-[#8aa2ff] to-[#596dff] text-lg font-semibold text-white shadow-[0_10px_24px_rgba(89,109,255,0.35)]">
           {application.company.charAt(0).toUpperCase()}
         </div>
         <div className="min-w-0 flex-1">
-          <div className="flex items-start justify-between gap-3">
-            <div>
-              <p className="text-[1rem] font-semibold tracking-[0.01em] text-white">
-                {application.company}
-              </p>
-              <p className="mt-1 text-sm text-[#b4b0bf]">
-                {application.position}
-              </p>
-            </div>
-            <span
-              className={`rounded-full px-2.5 py-1 text-[11px] font-medium ring-1 ${statusStyles[application.status]}`}
-            >
-              {formatStatusLabel(application.status)}
-            </span>
-          </div>
+          <p className="text-[1rem] font-semibold tracking-[0.01em] text-white">
+            {application.company}
+          </p>
+          <p className="mt-1 text-sm text-[#b4b0bf]">
+            {application.position}
+          </p>
+          <span
+            className={`mt-3 inline-flex rounded-full px-2 py-1 text-[11px] font-medium ring-1 ${statusStyles[application.status]}`}
+          >
+            {formatStatusLabel(application.status)}
+          </span>
         </div>
       </div>
 
