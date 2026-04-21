@@ -109,7 +109,6 @@ export default function ApplicationForm({
         <option value="interview">Interview</option>
         <option value="offer">Offer</option>
         <option value="rejected">Rejected</option>
-        <option value="withdrawn">Withdrawn</option>
       </select>
 
       <input

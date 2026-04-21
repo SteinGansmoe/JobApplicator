@@ -4,8 +4,7 @@ export type ApplicationStatus =
 | "applied"
 | "interview"
 | "offer"
-| "rejected"
-| "withdrawn";
+| "rejected";
 
 export type InterviewType = 
 | "phone_screen"

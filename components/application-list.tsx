@@ -1,6 +1,14 @@
 import { Application, ApplicationStatus } from "@/app/src/types";
 import ApplicationCard from "@/components/application-card";
 
+const boardColumns: { status: ApplicationStatus; label: string }[] = [
+  { status: "saved", label: "Saved" },
+  { status: "applied", label: "Applied" },
+  { status: "interview", label: "Interview" },
+  { status: "offer", label: "Offer" },
+  { status: "rejected", label: "Rejected" },
+];
+
 type ApplicationListProps = {
   applications: Application[];
   onStatusChange: (id: string, newStatus: ApplicationStatus) => void;
@@ -39,21 +47,57 @@ export default function ApplicationList({
         </div>
 
         <div className="flex justify-start md:justify-end">
-          <div className="rounded-full border border-[#7d89ff]/20 bg-[#6d7eff]/15 px-3 py-1 text-xs font-medium text-[#cbd2ff]">
-            {applications.length} tracked
+          <div className="rounded-2xl border border-[#7d89ff]/20 bg-[#6d7eff]/15 px-4 py-2 text-right">
+            <p className="text-[10px] font-medium uppercase tracking-[0.2em] text-[#9aa4ff]">
+              Total
+            </p>
+            <p className="text-2xl font-semibold text-[#f5f3fa]">
+              {applications.length}
+            </p>
           </div>
         </div>
       </div>
 
-      <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-3">
-        {applications.map((application) => (
-          <ApplicationCard
-            key={application.id}
-            application={application}
-            onStatusChange={onStatusChange}
-            onDelete={onDeleteApplication}
-          />
-        ))}
+      <div className="grid gap-4 pb-2 md:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-5">
+        {boardColumns.map((column) => {
+          const columnApplications = applications.filter(
+            (application) => application.status === column.status
+          );
+
+          return (
+            <section
+              key={column.status}
+              data-status={column.status}
+              className="min-w-0 rounded-xl border border-white/6 bg-[#201f26] p-3 2xl:min-w-[250px]"
+            >
+              <div className="mb-3 flex items-center justify-between rounded-xl bg-[#302e37] px-3 py-2">
+                <h3 className="text-sm font-semibold text-[#f5f3fa]">
+                  {column.label}
+                </h3>
+                <span className="rounded-full border border-white/8 bg-white/5 px-2 py-0.5 text-xs font-medium text-[#c8c4d1]">
+                  {columnApplications.length}
+                </span>
+              </div>
+
+              <div className="space-y-3">
+                {columnApplications.map((application) => (
+                  <ApplicationCard
+                    key={application.id}
+                    application={application}
+                    onStatusChange={onStatusChange}
+                    onDelete={onDeleteApplication}
+                  />
+                ))}
+
+                {columnApplications.length === 0 && (
+                  <div className="rounded-xl border border-dashed border-white/10 px-3 py-8 text-center text-sm text-[#8e8999]">
+                    No applications
+                  </div>
+                )}
+              </div>
+            </section>
+          );
+        })}
       </div>
     </section>
   );

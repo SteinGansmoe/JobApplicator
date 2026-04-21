@@ -1,7 +1,6 @@
 "use client";
 import ApplicationForm from "@/components/application-form";
 import ApplicationList from "@/components/application-list";
-import ApplicationStats from "@/components/application-stats";
 import { mockApplications } from './src/mock/mockApplications';
 import { Application, ApplicationStatus } from './src/types';
 import { useState } from 'react';
@@ -57,31 +56,10 @@ const onCancel = () => {
     setJobUrl("");
 }
 
-const stats = {
-  total: applications.length,
-  saved: applications.filter(app => app.status === "saved").length,
-  applied: applications.filter(app => app.status === "applied").length,
-  interview: applications.filter(app => app.status === "interview").length,
-  offer: applications.filter(app => app.status === "offer").length,
-  rejected: applications.filter(app => app.status === "rejected").length,
-  withdrawn: applications.filter(app => app.status === "withdrawn").length,
-}
-
-const statsArray = [
-  { label: "Total", value: stats.total },
-  { label: "Saved", value: stats.saved },
-  { label: "Applied", value: stats.applied },
-  { label: "Interview", value: stats.interview },
-  { label: "Offer", value: stats.offer },
-  { label: "Rejected", value: stats.rejected },
-  { label: "Withdrawn", value: stats.withdrawn },
-];
-
   return (
     <div className="min-h-screen bg-[radial-gradient(circle_at_top,_#4c4957_0%,_#2b2931_38%,_#1c1a21_100%)] px-4 py-8">
-    <div className="mx-auto max-w-6xl">
+    <div className="mx-auto max-w-[1600px]">
     <h1 className="mb-6 text-3xl font-bold text-white">Job Applications</h1>
-    <ApplicationStats stats={statsArray} />
     { showForm && (
       <ApplicationForm
         company={company}

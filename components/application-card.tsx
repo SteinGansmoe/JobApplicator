@@ -12,7 +12,6 @@ const statusStyles: Record<ApplicationStatus, string> = {
   interview: "bg-cyan-500/20 text-cyan-200 ring-cyan-400/30",
   offer: "bg-emerald-500/20 text-emerald-200 ring-emerald-400/30",
   rejected: "bg-rose-500/20 text-rose-200 ring-rose-400/30",
-  withdrawn: "bg-amber-500/20 text-amber-200 ring-amber-400/30",
 };
 
 function formatStatusLabel(status: ApplicationStatus) {
@@ -44,8 +43,8 @@ export default function ApplicationCard({
       >
         <svg
           xmlns="http://www.w3.org/2000/svg"
-          width="18"
-          height="18"
+          width="15"
+          height="15"
           viewBox="0 0 24 24"
           fill="none"
           stroke="currentColor"
@@ -81,7 +80,7 @@ export default function ApplicationCard({
       </div>
 
       <div className="space-y-3">
-        <div className="rounded-xl border border-white/5 bg-[#3a3741] px-3 py-2.5">
+        <div className="rounded-xl border border-white/5 bg-[#3a3741] px-3 py-1.5">
           <p className="text-[11px] uppercase tracking-[0.18em] text-[#8c8699]">
             Applied
           </p>
@@ -89,7 +88,7 @@ export default function ApplicationCard({
             {new Date(application.created_at).toLocaleDateString()}
           </p>
         </div>
-        <div className="rounded-xl border border-white/5 bg-[#3a3741] px-3 py-2.5">
+        <div className="rounded-xl border border-white/5 bg-[#3a3741] px-3 py-1.5">
           <p className="text-[11px] uppercase tracking-[0.18em] text-[#8c8699]">
             Location
           </p>
@@ -122,7 +121,6 @@ export default function ApplicationCard({
         <option value="interview">Interview</option>
         <option value="offer">Offer</option>
         <option value="rejected">Rejected</option>
-        <option value="withdrawn">Withdrawn</option>
       </select>
       <div className="mt-4 px-3 py-2.5">
           <p className="text-[11px] text-right uppercase tracking-[0.18em] text-[#8c8699]">

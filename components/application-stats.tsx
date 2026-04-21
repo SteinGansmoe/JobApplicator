@@ -9,7 +9,7 @@ type ApplicationStatsProps = {
 
 export default function ApplicationStats({ stats }: ApplicationStatsProps) {
   return (
-    <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8 mb-6 p-2">
+    <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-8 mb-6 p-2">
       {stats.map((item) => (
         <div
           key={item.label}
