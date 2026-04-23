@@ -39,7 +39,7 @@ export default function ApplicationCard({
         type="button"
         onClick={handleDelete}
         aria-label={`Delete ${application.company} application`}
-        className="absolute right-3 top-3 z-10 rounded-lg p-2 text-[#e6e2f0]/80 transition hover:bg-[#4d4a57] hover:text-[#ff8f9f] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#ff8f9f]"
+        className="absolute right-1 top-1 z-10 rounded p-2 text-[#e6e2f0]/80 transition hover:bg-[#4d4a57] hover:text-[#ff8f9f] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#ff8f9f]"
       >
         <svg
           xmlns="http://www.w3.org/2000/svg"
@@ -71,35 +71,37 @@ export default function ApplicationCard({
           <p className="mt-1 text-sm text-[#b4b0bf]">
             {application.position}
           </p>
+          
           <span
-            className={`mt-3 inline-flex rounded-full px-2 py-1 text-[11px] font-medium ring-1 ${statusStyles[application.status]}`}
+            className={`mt-3 tracking-wider absolute right-1 top-14 inline-flex rounded-full px-2 py-1 text-[11px] font-medium ring-1 ${statusStyles[application.status]}`}
           >
             {formatStatusLabel(application.status)}
           </span>
+        
         </div>
       </div>
 
-      <div className="space-y-3">
-        <div className="rounded-xl border border-white/5 bg-[#3a3741] px-3 py-1.5">
-          <p className="text-[11px] uppercase tracking-[0.18em] text-[#8c8699]">
+      <div className="space-y-2 mt-12">
+        <p className="text-sm text-[#8c8699]">
+          <span className="uppercase tracking-[0.18em] text-[11px] mr-2">
             Applied
-          </p>
-          <p className="mt-1 text-sm font-medium text-[#f3f1f8]">
+          </span>
+          <span className="text-[#f3f1f8] font-medium">
             {new Date(application.created_at).toLocaleDateString()}
-          </p>
-        </div>
-        <div className="rounded-xl border border-white/5 bg-[#3a3741] px-3 py-1.5">
-          <p className="text-[11px] uppercase tracking-[0.18em] text-[#8c8699]">
+          </span>
+        </p>
+        <p className="text-sm text-[#8c8699]">
+          <span className="uppercase tracking-[0.18em] text-[11px] mr-2">
             Location
-          </p>
-          <p className="mt-1 text-sm font-medium text-[#f3f1f8]">
+          </span>
+          <span className="text-[#f3f1f8] font-medium">
             {application.location || "None specified"}
-          </p>
-        </div>
-      </div>
+          </span>
+        </p>
+    </div>
 
 
-{/* Status Dropdown this is a temp solution until Kanban with drag and drop is implemented. */}
+{/* Status Dropdown this is a temp solution until Kanban with drag and drop is implemented. 
       <select
         value={application.status}
         onChange={(e) =>
@@ -129,7 +131,7 @@ export default function ApplicationCard({
           <p className="mt-1 text-right text-sm font-medium text-[#f3f1f8]">
             {new Date(application.updated_at).toLocaleDateString()}
           </p>
-        </div>
+        </div>*/}
     </div>
   );
 }
