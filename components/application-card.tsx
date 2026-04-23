@@ -2,7 +2,6 @@ import { Application, ApplicationStatus } from "@/app/src/types";
 
 type ApplicationCardProps = {
   application: Application;
-  onStatusChange: (id: string, newStatus: ApplicationStatus) => void;
   onDelete: (id: string) => void;
 };
 
@@ -20,7 +19,6 @@ function formatStatusLabel(status: ApplicationStatus) {
 
 export default function ApplicationCard({
   application,
-  onStatusChange,
   onDelete,
 }: ApplicationCardProps) {
   const handleDelete = () => {

@@ -27,7 +27,7 @@ export const mockApplications: Application[] = [
         job_url: "https://example.com/jobs/3",
         status: "interview",
         location: "Asker",
-        position: "JR Software Engineer",
+        position: "Software Engineer",
         created_at: new Date().toISOString(),
         updated_at: new Date().toISOString(),
     }

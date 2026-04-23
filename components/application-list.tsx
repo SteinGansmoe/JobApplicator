@@ -11,7 +11,6 @@ const boardColumns: { status: ApplicationStatus; label: string }[] = [
 
 type ApplicationListProps = {
   applications: Application[];
-  onStatusChange: (id: string, newStatus: ApplicationStatus) => void;
   onDeleteApplication: (id: string) => void;
   onToggleForm: () => void;
   isFormOpen: boolean;
@@ -19,7 +18,6 @@ type ApplicationListProps = {
 
 export default function ApplicationList({
   applications,
-  onStatusChange,
   onDeleteApplication,
   onToggleForm,
   isFormOpen,
@@ -84,7 +82,6 @@ export default function ApplicationList({
                   <ApplicationCard
                     key={application.id}
                     application={application}
-                    onStatusChange={onStatusChange}
                     onDelete={onDeleteApplication}
                   />
                 ))}

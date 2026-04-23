@@ -19,10 +19,6 @@ const addApplication = (app: Application) => {
     setApplications(prev => [...prev, app]);
 }
 
-const updateStatus = (id: string, newStatus: ApplicationStatus) => {
-    setApplications(prev => prev.map(app => app.id === id ? {...app, status: newStatus, updated_at: new Date().toISOString()} : app));
-}
-
 const deleteApplication = (id: string) => {
     setApplications((prev) => prev.filter((app) => app.id !== id));
 }
@@ -78,7 +74,6 @@ const onCancel = () => {
     )}
     <ApplicationList
       applications={applications}
-      onStatusChange={updateStatus}
       onDeleteApplication={deleteApplication}
       onToggleForm={() => setShowForm(!showForm)}
       isFormOpen={showForm}
