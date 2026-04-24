@@ -36,7 +36,6 @@ export default function ApplicationForm({
         rounded-[1.75rem]
         border border-white/6
         bg-[#26242c]
-        shadow-[0_24px_60px_rgba(10,10,16,0.28)]
         ring-1 ring-black/10
       "
     >
