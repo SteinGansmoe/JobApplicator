@@ -56,22 +56,38 @@ const onCancel = () => {
     <div className="min-h-screen bg-[radial-gradient(circle_at_top,_#4c4957_0%,_#2b2931_38%,_#1c1a21_100%)] px-4 py-8">
     <div className="mx-auto max-w-[1600px]">
     <h1 className="mb-6 text-3xl font-bold text-white">Job Applications</h1>
-    { showForm && (
-      <ApplicationForm
-        company={company}
-        position={position}
-        status={status}
-        jobUrl={jobUrl}
-        location={location}
-        onCompanyChange={setCompany}
-        onPositionChange={setPosition}
-        onLocationChange={setLocation}
-        onStatusChange={setStatus}
-        onJobUrlChange={setJobUrl}
-        onSubmit={handleSubmit}
-        onCancel={onCancel}
-      />
-    )}
+    <div
+      className={`grid transition-all duration-400 ease-out ${
+        showForm
+          ? "mb-6 grid-rows-[1fr] opacity-100"
+          : "mb-0 grid-rows-[0fr] opacity-0"
+      }`}
+    >
+      <div className="min-h-0 overflow-hidden">
+        <div
+          className={`transition-all duration-400 ease-out ${
+            showForm
+              ? "translate-y-0 scale-100"
+              : "-translate-y-3 scale-[0.98] pointer-events-none"
+          }`}
+        >
+          <ApplicationForm
+            company={company}
+            position={position}
+            status={status}
+            jobUrl={jobUrl}
+            location={location}
+            onCompanyChange={setCompany}
+            onPositionChange={setPosition}
+            onLocationChange={setLocation}
+            onStatusChange={setStatus}
+            onJobUrlChange={setJobUrl}
+            onSubmit={handleSubmit}
+            onCancel={onCancel}
+          />
+        </div>
+      </div>
+    </div>
     <ApplicationList
       applications={applications}
       onDeleteApplication={deleteApplication}

@@ -32,7 +32,6 @@ export default function ApplicationForm({
   return (
     <form
       className="
-        mb-6
         overflow-hidden
         rounded-[1.75rem]
         border border-white/6
