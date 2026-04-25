@@ -3,6 +3,7 @@ import { Application, ApplicationStatus } from "@/app/src/types";
 type ApplicationCardProps = {
   application: Application;
   onDelete: (id: string) => void;
+  onOpenDetails: (id: string) => void;
 };
 
 const statusStyles: Record<ApplicationStatus, string> = {
@@ -20,6 +21,7 @@ function formatStatusLabel(status: ApplicationStatus) {
 export default function ApplicationCard({
   application,
   onDelete,
+  onOpenDetails,
 }: ApplicationCardProps) {
   const handleDelete = () => {
     const shouldDelete = window.confirm(
@@ -63,9 +65,13 @@ export default function ApplicationCard({
           {application.company.charAt(0).toUpperCase()}
         </div>
         <div className="min-w-0 flex-1">
-          <p className="text-[1rem] font-semibold tracking-[0.01em] text-white">
+          <button
+            type="button"
+            onClick={() => onOpenDetails(application.id)}
+            className="text-left text-[1rem] font-semibold tracking-[0.01em] text-white transition hover:text-[#9aa4ff] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#8ea0ff]"
+          >
             {application.company}
-          </p>
+          </button>
           <p className="mt-1 text-sm text-[#b4b0bf]">
             {application.position}
           </p>
@@ -96,40 +102,7 @@ export default function ApplicationCard({
             {application.location || "None specified"}
           </span>
         </p>
-    </div>
-
-
-{/* Status Dropdown this is a temp solution until Kanban with drag and drop is implemented. 
-      <select
-        value={application.status}
-        onChange={(e) =>
-          onStatusChange(application.id, e.target.value as ApplicationStatus)
-        }
-        className="
-          mt-4
-          w-full
-          px-3 py-2
-          rounded-xl
-          border border-white/8
-          bg-[#3a3741]
-          text-[#f4f2f8]
-          focus:outline-none focus:ring-2 focus:ring-[#7188ff]
-        "
-      >
-        <option value="saved">Saved</option>
-        <option value="applied">Applied</option>
-        <option value="interview">Interview</option>
-        <option value="offer">Offer</option>
-        <option value="rejected">Rejected</option>
-      </select>
-      <div className="mt-4 px-3 py-2.5">
-          <p className="text-[11px] text-right uppercase tracking-[0.18em] text-[#8c8699]">
-            Last Updated
-          </p>
-          <p className="mt-1 text-right text-sm font-medium text-[#f3f1f8]">
-            {new Date(application.updated_at).toLocaleDateString()}
-          </p>
-        </div>*/}
+      </div>
     </div>
   );
 }

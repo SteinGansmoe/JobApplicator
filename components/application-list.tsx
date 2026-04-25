@@ -14,6 +14,7 @@ type ApplicationListProps = {
   onDeleteApplication: (id: string) => void;
   onToggleForm: () => void;
   isFormOpen: boolean;
+  onOpenDetails: (id: string) => void;
 };
 
 export default function ApplicationList({
@@ -21,6 +22,7 @@ export default function ApplicationList({
   onDeleteApplication,
   onToggleForm,
   isFormOpen,
+  onOpenDetails,
 }: ApplicationListProps) {
   return (
     <section className="rounded-[1.75rem] border border-white/6 bg-[#26242c] p-4 shadow-[0_24px_60px_rgba(10,10,16,0.28)] ring-1 ring-black/10 md:p-6">
@@ -83,6 +85,7 @@ export default function ApplicationList({
                     key={application.id}
                     application={application}
                     onDelete={onDeleteApplication}
+                    onOpenDetails={onOpenDetails}
                   />
                 ))}
 

@@ -1,4 +1,5 @@
 "use client";
+import ApplicationDetailModal from "@/components/application-detail-modal";
 import ApplicationForm from "@/components/application-form";
 import ApplicationList from "@/components/application-list";
 import { mockApplications } from './src/mock/mockApplications';
@@ -8,6 +9,8 @@ import { useState } from 'react';
 export default function Home() {
   const [applications, setApplications] = useState<Application[]>(mockApplications);
   const [showForm, setShowForm] = useState(false);
+  const [selectedApplicationId, setSelectedApplicationId] = useState<string | null>(null);
+  const [isDetailModalOpen, setIsDetailModalOpen] = useState(false);
   const [company, setCompany] = useState("");
   const [location, setLocation] = useState("");
   const [position, setPosition] = useState("");
@@ -19,8 +22,29 @@ const addApplication = (app: Application) => {
     setApplications(prev => [...prev, app]);
 }
 
+const updateStatus = (id: string, newStatus: ApplicationStatus) => {
+    setApplications(prev => prev.map(app => app.id === id ? {...app, status: newStatus, updated_at: new Date().toISOString()} : app));
+}
+
 const deleteApplication = (id: string) => {
     setApplications((prev) => prev.filter((app) => app.id !== id));
+    if (selectedApplicationId === id) {
+        closeDetailModal();
+    }
+}
+
+const openDetailModal = (id: string) => {
+    setSelectedApplicationId(id);
+    requestAnimationFrame(() => {
+        setIsDetailModalOpen(true);
+    });
+}
+
+const closeDetailModal = () => {
+    setIsDetailModalOpen(false);
+    setTimeout(() => {
+        setSelectedApplicationId(null);
+    }, 300);
 }
 
 
@@ -51,6 +75,10 @@ const onCancel = () => {
     setStatus("saved");
     setJobUrl("");
 }
+
+const selectedApplication = applications.find(
+    (application) => application.id === selectedApplicationId
+) ?? null;
 
   return (
     <div className="min-h-screen bg-[radial-gradient(circle_at_top,_#4c4957_0%,_#2b2931_38%,_#1c1a21_100%)] px-4 py-8">
@@ -93,8 +121,15 @@ const onCancel = () => {
       onDeleteApplication={deleteApplication}
       onToggleForm={() => setShowForm(!showForm)}
       isFormOpen={showForm}
+      onOpenDetails={openDetailModal}
     />
-  
+
+    <ApplicationDetailModal
+      application={selectedApplication}
+      isOpen={isDetailModalOpen}
+      onClose={closeDetailModal}
+      onStatusChange={updateStatus}
+    />
   </div>
   </div>
   );
