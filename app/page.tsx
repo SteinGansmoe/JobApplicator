@@ -118,6 +118,7 @@ const selectedApplication = applications.find(
     </div>
     <ApplicationList
       applications={applications}
+      onStatusChange={updateStatus}
       onDeleteApplication={deleteApplication}
       onToggleForm={() => setShowForm(!showForm)}
       isFormOpen={showForm}

@@ -1,9 +1,11 @@
+import { useDraggable } from "@dnd-kit/core";
 import { Application, ApplicationStatus } from "@/app/src/types";
 
 type ApplicationCardProps = {
   application: Application;
   onDelete: (id: string) => void;
   onOpenDetails: (id: string) => void;
+  draggable?: boolean;
 };
 
 const statusStyles: Record<ApplicationStatus, string> = {
@@ -22,7 +24,20 @@ export default function ApplicationCard({
   application,
   onDelete,
   onOpenDetails,
+  draggable = true,
 }: ApplicationCardProps) {
+  const draggableState = useDraggable({
+    id: application.id,
+    data: {
+      applicationId: application.id,
+      status: application.status,
+    },
+    disabled: !draggable,
+  });
+
+  const { attributes, listeners, setNodeRef, transform, isDragging } =
+    draggableState;
+
   const handleDelete = () => {
     const shouldDelete = window.confirm(
       `Delete ${application.position} at ${application.company}? This action cannot be undone.`
@@ -34,10 +49,24 @@ export default function ApplicationCard({
   };
 
   return (
-    <div className="relative rounded-md border border-white/6 bg-[#2f2d35] p-4 text-white shadow-[0_18px_40px_rgba(10,10,16,0.22)] ring-1 ring-black/10">
+    <div
+      ref={setNodeRef}
+      style={{
+        transform: transform
+          ? `translate3d(${transform.x}px, ${transform.y}px, 0)`
+          : undefined,
+        touchAction: "none",
+      }}
+      className={`relative rounded-md border border-white/6 bg-[#2f2d35] p-4 text-white shadow-[0_18px_40px_rgba(10,10,16,0.22)] ring-1 ring-black/10 ${
+        isDragging ? "opacity-0 ring-2 ring-[#8ea0ff]" : ""
+      }`}
+      {...attributes}
+      {...listeners}
+    >
       <button
         type="button"
         onClick={handleDelete}
+        onPointerDown={(e) => e.stopPropagation()}
         aria-label={`Delete ${application.company} application`}
         className="absolute right-1 top-1 z-10 rounded p-2 text-[#e6e2f0]/80 transition hover:bg-[#4d4a57] hover:text-[#ff8f9f] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#ff8f9f]"
       >
@@ -68,6 +97,7 @@ export default function ApplicationCard({
           <button
             type="button"
             onClick={() => onOpenDetails(application.id)}
+            onPointerDown={(e) => e.stopPropagation()}
             className="text-left text-[1rem] font-semibold tracking-[0.01em] text-white transition hover:text-[#9aa4ff] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#8ea0ff]"
           >
             {application.company}
