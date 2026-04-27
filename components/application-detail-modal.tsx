@@ -62,7 +62,7 @@ export default function ApplicationDetailModal({
             <button
               type="button"
               onClick={onClose}
-              className="rounded-full border border-white/10 bg-white/5 px-3 py-1.5 text-sm text-[#d7d2df] transition hover:bg-white/10"
+              className="cursor-pointer rounded-full border border-white/10 bg-white/5 px-3 py-1.5 text-sm text-[#d7d2df] transition hover:bg-white/10"
             >
               Close
             </button>

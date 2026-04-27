@@ -151,7 +151,7 @@ export default function ApplicationList({
           <button
             type="button"
             onClick={onToggleForm}
-            className="inline-flex items-center justify-center rounded-full border border-[#7d89ff]/30 bg-[linear-gradient(135deg,_rgba(128,144,255,0.95),_rgba(93,110,255,0.78))] px-5 py-2 text-sm font-medium text-white shadow-[0_12px_30px_rgba(93,110,255,0.28)] transition hover:brightness-110 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#8ea0ff]"
+            className="cursor-pointer inline-flex items-center justify-center rounded-full border border-[#7d89ff]/30 bg-[linear-gradient(135deg,_rgba(128,144,255,0.95),_rgba(93,110,255,0.78))] px-5 py-2 text-sm font-medium text-white shadow-[0_12px_30px_rgba(93,110,255,0.28)] transition hover:brightness-110 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#8ea0ff]"
           >
             {isFormOpen ? "Close Application Form" : "Add Application"}
           </button>

@@ -174,7 +174,7 @@ export default function ApplicationForm({
         <button
           type="button"
           onClick={onCancel}
-          className="
+          className="cursor-pointer
             inline-flex items-center justify-center
             rounded-full
             border border-white/10
@@ -191,7 +191,7 @@ export default function ApplicationForm({
         <button
           type="submit"
           onClick={onSubmit}
-          className="
+          className="cursor-pointer
             inline-flex items-center justify-center
             rounded-full
             border border-[#7d89ff]/30
