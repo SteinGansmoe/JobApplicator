@@ -68,7 +68,7 @@ export default function ApplicationCard({
         onClick={handleDelete}
         onPointerDown={(e) => e.stopPropagation()}
         aria-label={`Delete ${application.company} application`}
-        className="absolute right-1 top-1 z-10 rounded p-2 text-[#e6e2f0]/80 transition hover:bg-[#4d4a57] hover:text-[#ff8f9f] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#ff8f9f]"
+        className="cursor-pointer absolute right-1 top-1 z-10 rounded p-2 text-[#e6e2f0]/80 transition hover:bg-[#4d4a57] hover:text-[#ff8f9f] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#ff8f9f]"
       >
         <svg
           xmlns="http://www.w3.org/2000/svg"
@@ -98,7 +98,7 @@ export default function ApplicationCard({
             type="button"
             onClick={() => onOpenDetails(application.id)}
             onPointerDown={(e) => e.stopPropagation()}
-            className="text-left text-[1rem] font-semibold tracking-[0.01em] text-white transition hover:text-[#9aa4ff] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#8ea0ff]"
+            className="cursor-pointer text-left text-[1rem] font-semibold tracking-[0.01em] text-white transition hover:text-[#9aa4ff] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#8ea0ff]"
           >
             {application.company}
           </button>
